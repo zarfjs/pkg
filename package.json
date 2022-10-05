@@ -1,0 +1,61 @@
+{
+  "name": "@zarfjs/pkg",
+  "version": "0.0.1",
+  "author": "Aftab Alam <one.aalam@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zarfjs/pkg.git"
+  },
+  "bugs": "https://github.com/zarfjs/pkg/issues",
+  "type": "module",
+  "description": "Friends of Zarf",
+  "files": [
+    "dist"
+  ],
+  "homepage": "https://github.com/zarfjs/pkg",
+  "keywords": [
+    "bun",
+    "web",
+    "package",
+    "http",
+    "middleware"
+  ],
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "dev": "nodemon --config nodemon.json",
+    "build": "bun run build:tsup --dts-resolve",
+    "build:tsup": "tsup",
+    "build:deno": "rimraf deno_dist && denoify",
+    "release": "bumpp --commit --push --tag && npm publish",
+    "prepublishOnly": "bun run build",
+    "test": "bun wiptest",
+    "test:all": "bun run test:unit && bun run test:pkg",
+    "test:unit": "vitest run --reporter=verbose",
+    "test:pkg": "publint",
+    "dev:deno": "deno run --unstable --reload --allow-read --allow-env --allow-net example/deno/app.ts"
+  },
+  "exports": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "module": "./dist/index.cjs",
+  "devDependencies": {
+    "bumpp": "^8.2.1",
+    "bun-types": "^0.1.0",
+    "denoify": "^1.1.6",
+    "node-fetch": "^3.2.10",
+    "nodemon": "^2.0.20",
+    "publint": "^0.1.1",
+    "rimraf": "^3.0.2",
+    "tsup": "^6.2.3",
+    "typescript": "^4.8.4",
+    "vitest": "^0.23.4"
+  },
+  "dependencies": {
+    "@zarfjs/zarf": "^0.0.1-alpha.19"
+  },
+  "denoify": {
+    "index": "src/index.ts"
+  }
+}
